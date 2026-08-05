@@ -18,16 +18,16 @@ class HeroBanner extends StatelessWidget {
         gradient: const LinearGradient(
           colors: [
             AppColors.primary,
-            AppColors.secondary,
+            AppColors.primaryLight,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withValues(alpha: 0.30),
+            color: AppColors.shadow,
             blurRadius: 20,
-            offset: const Offset(0, 10),
+            offset: Offset(0, 10),
           ),
         ],
       ),
@@ -84,16 +84,13 @@ class HeroBanner extends StatelessWidget {
 
           Image.asset(
             "assets/images/banner.png",
-            width: 200,
+            width: 180,
             fit: BoxFit.contain,
             errorBuilder: (context, error, stackTrace) {
-              return const Text(
-                "IMAGE NOT FOUND",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+              return const Icon(
+                Icons.image_not_supported,
+                color: Colors.white,
+                size: 60,
               );
             },
           ),
