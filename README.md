@@ -1,17 +1,122 @@
-# food_delivery_app
+# 🍔 Food Delivery App
 
-A new Flutter project.
+A modern and scalable Food Delivery mobile application built with **Flutter**.
 
-## Getting Started
+This project is part of my Flutter learning journey where I am building a complete production-style application step by step using clean architecture and reusable widgets.
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+# 🚀 Current Version
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+**Version 0.2**
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+# ✨ Completed Features
+
+## ✅ Version 0.1 – Home Screen
+
+- Beautiful Home Screen UI
+- Custom Header
+- Search Bar
+- Hero Banner
+- Food Categories
+- Popular Foods Section
+- Recommended Foods Section
+- Custom Bottom Navigation
+- Reusable Widgets
+- Light Theme
+- Clean Folder Structure
+
+---
+
+## ✅ Version 0.2 – Food Details
+
+- Premium Food Details Screen
+- Details Header
+- Food Information Card
+- Ingredients Section
+- Quantity Selector
+- Add To Cart Button UI
+- Better Reusable Components
+- Improved UI Design
+
+---
+
+# 🛠 Tech Stack
+
+- Flutter
+- Dart
+- Material Design 3
+
+---
+
+# 📂 Project Structure
+
+```text
+lib/
+│
+├── models/
+├── data/
+├── screens/
+├── widgets/
+│   ├── details/
+│   └── ...
+├── utils/
+└── main.dart
+```
+
+---
+
+# 📅 Roadmap
+
+✅ Version 0.1 — Home Screen
+
+✅ Version 0.2 — Food Details Screen
+
+🔄 Version 0.3 — Working Cart System
+
+⏳ Version 0.4 — Search & Category Filter
+
+⏳ Version 0.5 — Authentication
+
+⏳ Version 0.6 — User Profile
+
+⏳ Version 0.7 — Orders
+
+⏳ Version 0.8 — Backend Integration
+
+⏳ Version 0.9 — Firebase
+
+⏳ Version 1.0 — Production Ready Application
+
+---
+
+# 📸 Screenshots
+
+> Screenshots will be added after every completed version.
+
+---
+
+# 🎯 Project Goal
+
+The goal of this project is to build a professional Flutter application by following real-world development practices including:
+
+- Reusable Widgets
+- Clean UI
+- Scalable Folder Structure
+- Version-wise Development
+- GitHub Version Control
+- Portfolio Ready Code
+
+---
+
+# 👨‍💻 Developer
+
+**Muhammad Abdullah**
+
+BS Information Technology
+
+Flutter Developer (Learning)
+
+Pakistan
