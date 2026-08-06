@@ -1,122 +1,143 @@
 # 🍔 Food Delivery App
 
-A modern and scalable Food Delivery mobile application built with **Flutter**.
+A modern, responsive, and scalable **Food Delivery Application** built with **Flutter**.
 
-This project is part of my Flutter learning journey where I am building a complete production-style application step by step using clean architecture and reusable widgets.
-
----
-
-# 🚀 Current Version
-
-**Version 0.2**
+This project is being developed using **Flutter**, **Provider State Management**, and **Clean Architecture** with the goal of building a production-ready cross-platform application.
 
 ---
 
-# ✨ Completed Features
+## ✨ Features
 
-## ✅ Version 0.1 – Home Screen
+### ✅ Completed
 
-- Beautiful Home Screen UI
-- Custom Header
-- Search Bar
-- Hero Banner
-- Food Categories
-- Popular Foods Section
-- Recommended Foods Section
-- Custom Bottom Navigation
-- Reusable Widgets
-- Light Theme
-- Clean Folder Structure
-
----
-
-## ✅ Version 0.2 – Food Details
-
-- Premium Food Details Screen
-- Details Header
-- Food Information Card
-- Ingredients Section
-- Quantity Selector
-- Add To Cart Button UI
-- Better Reusable Components
-- Improved UI Design
+- 🏠 Modern Home Screen
+- 🎯 Hero Banner
+- 🍔 Food Details Screen
+- 🍕 Categories
+- ⭐ Popular & Recommended Foods
+- 🛒 Shopping Cart
+- ➕ Add to Cart
+- ➖ Increase / Decrease Quantity
+- 🗑 Remove Items
+- 💰 Live Order Summary
+- 🔴 Dynamic Cart Badge
+- 📱 Responsive UI
+- ⚡ Provider State Management
+- ♻️ Reusable Widgets
 
 ---
 
-# 🛠 Tech Stack
+## 🚀 Upcoming Features
+
+- 🔍 Smart Search
+- ❤️ Favorites
+- 🍕 Category Filtering
+- 👤 User Authentication
+- ☁ Firebase Integration
+- 📍 Google Maps
+- 🚚 Live Order Tracking
+- 💳 Payment Gateway
+- 🌙 Dark Mode
+- 🌐 Localization
+- 🔔 Push Notifications
+
+---
+
+## 🛠 Tech Stack
 
 - Flutter
 - Dart
-- Material Design 3
+- Provider
+- Material Design
 
 ---
 
-# 📂 Project Structure
+## 📂 Project Structure
 
 ```text
-lib/
-│
-├── models/
-├── data/
-├── screens/
-├── widgets/
-│   ├── details/
-│   └── ...
-├── utils/
+lib
+├── data
+├── models
+├── providers
+├── repositories
+├── screens
+├── services
+├── utils
+├── widgets
 └── main.dart
 ```
 
 ---
 
-# 📅 Roadmap
+## 📸 Screenshots
 
-✅ Version 0.1 — Home Screen
-
-✅ Version 0.2 — Food Details Screen
-
-🔄 Version 0.3 — Working Cart System
-
-⏳ Version 0.4 — Search & Category Filter
-
-⏳ Version 0.5 — Authentication
-
-⏳ Version 0.6 — User Profile
-
-⏳ Version 0.7 — Orders
-
-⏳ Version 0.8 — Backend Integration
-
-⏳ Version 0.9 — Firebase
-
-⏳ Version 1.0 — Production Ready Application
+Screenshots will be added in future updates.
 
 ---
 
-# 📸 Screenshots
+## 📈 Version History
 
-> Screenshots will be added after every completed version.
-
----
-
-# 🎯 Project Goal
-
-The goal of this project is to build a professional Flutter application by following real-world development practices including:
-
-- Reusable Widgets
-- Clean UI
-- Scalable Folder Structure
-- Version-wise Development
-- GitHub Version Control
-- Portfolio Ready Code
+| Version | Status | Description |
+|----------|--------|-------------|
+| v0.1 | ✅ Completed | Home Screen UI |
+| v0.2 | ✅ Completed | Food Details Screen |
+| v0.3 | ✅ Completed | Provider & Cart Foundation |
+| v0.3.1 | ✅ Completed | Shopping Cart Module |
+| v0.4 | 🚧 In Progress | Smart Search System |
 
 ---
 
-# 👨‍💻 Developer
+## ⚙️ Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/M-ABDULLAH832/food-delivery-app.git
+```
+
+### Navigate to Project
+
+```bash
+cd food-delivery-app
+```
+
+### Install Dependencies
+
+```bash
+flutter pub get
+```
+
+### Run the App
+
+```bash
+flutter run
+```
+
+---
+
+## 🎯 Goals
+
+- Clean Architecture
+- Scalable Codebase
+- Cross-Platform Support
+- High Performance
+- Production Ready
+- Modern UI/UX
+
+---
+
+## 👨‍💻 Developer
 
 **Muhammad Abdullah**
 
-BS Information Technology
+BS Information Technology Student
 
-Flutter Developer (Learning)
+Flutter Developer
 
-Pakistan
+GitHub: https://github.com/M-ABDULLAH832
+
+---
+
+## ⭐ Support
+
+If you like this project, please consider giving it a **Star ⭐** on GitHub.
