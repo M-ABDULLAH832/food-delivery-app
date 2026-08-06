@@ -53,24 +53,27 @@ class FoodCard extends StatelessWidget {
                   ),
                 ),
                 child: Center(
-                  child: Image.asset(
-                    food.image,
-                    width: 130,
-                    height: 130,
-                    fit: BoxFit.contain,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        color: Colors.red,
-                        alignment: Alignment.center,
-                        child: const Text(
-                          "IMAGE NOT FOUND",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
+                  child: Hero(
+                    tag: food.name,
+                    child: Image.asset(
+                      food.image,
+                      width: 130,
+                      height: 130,
+                      fit: BoxFit.contain,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          color: Colors.red,
+                          alignment: Alignment.center,
+                          child: const Text(
+                            "IMAGE NOT FOUND",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -84,12 +87,16 @@ class FoodCard extends StatelessWidget {
                   children: [
                     Text(
                       food.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
                     ),
+
                     const SizedBox(height: 10),
+
                     Row(
                       children: [
                         const Icon(
@@ -97,19 +104,27 @@ class FoodCard extends StatelessWidget {
                           color: Colors.amber,
                           size: 18,
                         ),
+
                         const SizedBox(width: 4),
+
                         Text(food.rating.toString()),
+
                         const Spacer(),
+
                         const Icon(
                           Icons.access_time,
                           size: 17,
                           color: Colors.grey,
                         ),
+
                         const SizedBox(width: 4),
+
                         Text(food.time),
                       ],
                     ),
+
                     const Spacer(),
+
                     Row(
                       children: [
                         Text(
@@ -120,22 +135,25 @@ class FoodCard extends StatelessWidget {
                             fontSize: 22,
                           ),
                         ),
-                        const Spacer(),
-                        GestureDetector(
-                          onTap: () {
-                            Provider.of<CartProvider>(
-                              context,
-                              listen: false,
-                            ).addToCart(food);
 
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  "${food.name} added to cart",
+                        const Spacer(),
+
+                        InkWell(
+                          borderRadius: BorderRadius.circular(14),
+                          onTap: () {
+                            context.read<CartProvider>().addToCart(food);
+
+                            ScaffoldMessenger.of(context)
+                              ..hideCurrentSnackBar()
+                              ..showSnackBar(
+                                SnackBar(
+                                  behavior: SnackBarBehavior.floating,
+                                  duration: const Duration(seconds: 1),
+                                  content: Text(
+                                    "${food.name} added to cart",
+                                  ),
                                 ),
-                                duration: const Duration(seconds: 1),
-                              ),
-                            );
+                              );
                           },
                           child: Container(
                             height: 42,

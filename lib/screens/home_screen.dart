@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../data/food_data.dart';
+import '../screens/cart_screen.dart';
 import '../widgets/category_list.dart';
 import '../widgets/custom_bottom_nav.dart';
 import '../widgets/food_card.dart';
@@ -18,6 +19,22 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
+
+  void onBottomNavTap(int index) {
+    if (index == 2) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const CartScreen(),
+        ),
+      );
+      return;
+    }
+
+    setState(() {
+      currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,11 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       bottomNavigationBar: CustomBottomNav(
         currentIndex: currentIndex,
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
+        onTap: onBottomNavTap,
       ),
     );
   }
