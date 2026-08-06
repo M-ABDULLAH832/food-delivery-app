@@ -8,6 +8,8 @@ class FoodModel {
   final String description;
   final int calories;
 
+  int quantity;
+
   FoodModel({
     required this.name,
     required this.image,
@@ -16,5 +18,6 @@ class FoodModel {
     required this.time,
     required this.description,
     required this.calories,
+    this.quantity = 1,
   });
 }

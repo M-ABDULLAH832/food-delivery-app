@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'providers/cart_provider.dart';
 import 'screens/home_screen.dart';
 import 'utils/app_theme.dart';
 
 void main() {
-  runApp(const FoodDeliveryApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => CartProvider(),
+        ),
+      ],
+      child: const FoodDeliveryApp(),
+    ),
+  );
 }
 
 class FoodDeliveryApp extends StatelessWidget {
@@ -13,7 +25,7 @@ class FoodDeliveryApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Food Delivery",
+      title: 'Food Delivery',
       theme: AppTheme.lightTheme,
       home: const HomeScreen(),
     );

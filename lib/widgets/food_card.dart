@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../models/food_model.dart';
+import '../providers/cart_provider.dart';
 import '../screens/food_details_screen.dart';
 import '../utils/app_colors.dart';
 
@@ -19,13 +21,10 @@ class FoodCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => FoodDetailsScreen(
-              food: food,
-            ),
+            builder: (_) => FoodDetailsScreen(food: food),
           ),
         );
       },
-
       child: Container(
         width: 210,
         margin: const EdgeInsets.only(right: 18),
@@ -40,11 +39,9 @@ class FoodCard extends StatelessWidget {
             ),
           ],
         ),
-
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             Expanded(
               flex: 6,
               child: Container(
@@ -55,44 +52,36 @@ class FoodCard extends StatelessWidget {
                     top: Radius.circular(24),
                   ),
                 ),
-
                 child: Center(
-                  child: Hero(
-                    tag: food.name,
-                    child: Image.asset(
-                      food.image,
-                      width: 130,
-                      height: 130,
-                      fit: BoxFit.contain,
-
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          color: Colors.red,
-                          alignment: Alignment.center,
-                          child: const Text(
-                            "IMAGE NOT FOUND",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
+                  child: Image.asset(
+                    food.image,
+                    width: 130,
+                    height: 130,
+                    fit: BoxFit.contain,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: Colors.red,
+                        alignment: Alignment.center,
+                        child: const Text(
+                          "IMAGE NOT FOUND",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
                           ),
-                        );
-                      },
-                    ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
             ),
-
             Expanded(
               flex: 5,
               child: Padding(
                 padding: const EdgeInsets.all(16),
-
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     Text(
                       food.name,
                       style: const TextStyle(
@@ -100,63 +89,65 @@ class FoodCard extends StatelessWidget {
                         fontSize: 18,
                       ),
                     ),
-
                     const SizedBox(height: 10),
-
                     Row(
                       children: [
-
                         const Icon(
                           Icons.star,
                           color: Colors.amber,
                           size: 18,
                         ),
-
                         const SizedBox(width: 4),
-
                         Text(food.rating.toString()),
-
                         const Spacer(),
-
                         const Icon(
                           Icons.access_time,
                           size: 17,
                           color: Colors.grey,
                         ),
-
                         const SizedBox(width: 4),
-
                         Text(food.time),
                       ],
                     ),
-
                     const Spacer(),
-
                     Row(
                       children: [
-
                         Text(
-                          "\$${food.price}",
+                          "Rs ${food.price.toStringAsFixed(0)}",
                           style: const TextStyle(
                             color: AppColors.primary,
                             fontWeight: FontWeight.bold,
                             fontSize: 22,
                           ),
                         ),
-
                         const Spacer(),
+                        GestureDetector(
+                          onTap: () {
+                            Provider.of<CartProvider>(
+                              context,
+                              listen: false,
+                            ).addToCart(food);
 
-                        Container(
-                          height: 42,
-                          width: 42,
-                          decoration: BoxDecoration(
-                            color: AppColors.primary,
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-
-                          child: const Icon(
-                            Icons.add,
-                            color: Colors.white,
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  "${food.name} added to cart",
+                                ),
+                                duration: const Duration(seconds: 1),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            height: 42,
+                            width: 42,
+                            decoration: BoxDecoration(
+                              color: AppColors.primary,
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                            child: const Icon(
+                              Icons.add,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ],
