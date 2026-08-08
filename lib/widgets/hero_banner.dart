@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../utils/app_colors.dart';
 
 class HeroBanner extends StatelessWidget {
@@ -7,72 +8,77 @@ class HeroBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 180,
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 24,
-        vertical: 20,
-      ),
+      height: 190,
+      padding: const EdgeInsets.all(22),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           colors: [
             AppColors.primary,
-            AppColors.primaryLight,
+            AppColors.primary.withValues(alpha: 0.75),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
+        borderRadius: BorderRadius.circular(28),
         boxShadow: [
           BoxShadow(
-            color: AppColors.shadow,
-            blurRadius: 20,
-            offset: Offset(0, 10),
+            color: AppColors.primary.withValues(alpha: 0.20),
+            blurRadius: 18,
+            offset: const Offset(0, 8),
           ),
         ],
       ),
       child: Row(
         children: [
           Expanded(
+            flex: 6,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  "30% OFF",
+                  "Hungry?",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 30,
+                    fontSize: 26,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
 
+                const SizedBox(height: 4),
+
                 const Text(
-                  "Free Delivery\non your first order",
+                  "Get your favorite food\nat your doorstep!",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 17,
-                    height: 1.3,
+                    fontSize: 14,
+                    height: 1.4,
                   ),
                 ),
 
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                const SizedBox(height: 14),
+
+                SizedBox(
+                  height: 38,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: AppColors.primary,
+                      elevation: 0,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 18,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 12,
-                    ),
-                  ),
-                  child: const Text(
-                    "Order Now",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                    child: const Text(
+                      "Order Now",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -80,19 +86,23 @@ class HeroBanner extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(width: 16),
-
-          Image.asset(
-            "assets/images/banner.png",
-            width: 180,
-            fit: BoxFit.contain,
-            errorBuilder: (context, error, stackTrace) {
-              return const Icon(
-                Icons.image_not_supported,
-                color: Colors.white,
-                size: 60,
-              );
-            },
+          Expanded(
+            flex: 4,
+            child: Center(
+              child: Image.asset(
+                "assets/images/burger.png",
+                width: 125,
+                height: 125,
+                fit: BoxFit.contain,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(
+                    Icons.fastfood_rounded,
+                    size: 80,
+                    color: Colors.white,
+                  );
+                },
+              ),
+            ),
           ),
         ],
       ),

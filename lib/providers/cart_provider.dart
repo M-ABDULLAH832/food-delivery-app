@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../models/food_model.dart';
 
 class CartProvider extends ChangeNotifier {
@@ -7,7 +8,7 @@ class CartProvider extends ChangeNotifier {
   List<FoodModel> get cartItems => _cartItems;
 
   void addToCart(FoodModel food) {
-    int index = _cartItems.indexWhere(
+    final index = _cartItems.indexWhere(
       (item) => item.name == food.name,
     );
 
@@ -23,6 +24,7 @@ class CartProvider extends ChangeNotifier {
           time: food.time,
           description: food.description,
           calories: food.calories,
+          category: food.category,
           quantity: 1,
         ),
       );
@@ -32,7 +34,10 @@ class CartProvider extends ChangeNotifier {
   }
 
   void removeFromCart(FoodModel food) {
-    _cartItems.remove(food);
+    _cartItems.removeWhere(
+      (item) => item.name == food.name,
+    );
+
     notifyListeners();
   }
 
@@ -45,7 +50,8 @@ class CartProvider extends ChangeNotifier {
     if (food.quantity > 1) {
       food.quantity--;
     } else {
-      _cartItems.remove(food);
+      removeFromCart(food);
+      return;
     }
 
     notifyListeners();
@@ -59,5 +65,20 @@ class CartProvider extends ChangeNotifier {
     }
 
     return total;
+  }
+
+  int get totalItems {
+    int total = 0;
+
+    for (final item in _cartItems) {
+      total += item.quantity;
+    }
+
+    return total;
+  }
+
+  void clearCart() {
+    _cartItems.clear();
+    notifyListeners();
   }
 }

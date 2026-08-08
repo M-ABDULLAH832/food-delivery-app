@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../utils/app_colors.dart';
 
 class HeaderSection extends StatelessWidget {
@@ -8,54 +9,82 @@ class HeaderSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // Left Side
-        Expanded(
+        Container(
+          width: 52,
+          height: 52,
+          decoration: BoxDecoration(
+            color: AppColors.primary.withValues(alpha: 0.10),
+            shape: BoxShape.circle,
+          ),
+          child: const Icon(
+            Icons.person_rounded,
+            color: AppColors.primary,
+            size: 30,
+          ),
+        ),
+
+        const SizedBox(width: 14),
+
+        const Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
-                "👋 Hello Abdullah",
+                "Good morning 👋",
                 style: TextStyle(
-                  fontSize: 18,
-                  color: AppColors.subtitle,
-                  fontWeight: FontWeight.w500,
+                  color: Colors.grey,
+                  fontSize: 14,
                 ),
               ),
-
-              SizedBox(height: 8),
-
+              SizedBox(height: 3),
               Text(
-                "Find Your\nFavorite Food 🍔",
+                "Food Lover",
                 style: TextStyle(
-                  fontSize: 32,
+                  fontSize: 21,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.heading,
-                  height: 1.2,
                 ),
               ),
             ],
           ),
         ),
 
-        // Notification Button
         Container(
-          height: 55,
-          width: 55,
+          width: 48,
+          height: 48,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(15),
             boxShadow: [
               BoxShadow(
-                color: Colors.black12,
-                blurRadius: 15,
-                offset: Offset(0, 6),
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
               ),
             ],
           ),
-          child: const Icon(
-            Icons.notifications_none_rounded,
-            color: AppColors.primary,
-            size: 28,
+          child: Stack(
+            children: [
+              const Center(
+                child: Icon(
+                  Icons.notifications_none_rounded,
+                  color: Colors.black87,
+                  size: 27,
+                ),
+              ),
+
+              Positioned(
+                top: 10,
+                right: 10,
+                child: Container(
+                  width: 8,
+                  height: 8,
+                  decoration: const BoxDecoration(
+                    color: Colors.red,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ],

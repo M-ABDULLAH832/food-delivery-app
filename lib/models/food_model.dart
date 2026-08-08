@@ -4,9 +4,9 @@ class FoodModel {
   final double price;
   final double rating;
   final String time;
-
   final String description;
   final int calories;
+  final String category;
 
   int quantity;
 
@@ -18,6 +18,7 @@ class FoodModel {
     required this.time,
     required this.description,
     required this.calories,
-    this.quantity = 1,
+    required this.category,
+    this.quantity = 0,
   });
 }

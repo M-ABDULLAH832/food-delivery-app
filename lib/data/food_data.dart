@@ -10,6 +10,7 @@ final List<FoodModel> foodList = [
     description:
         "Juicy grilled chicken burger with fresh lettuce, cheddar cheese and our special signature sauce.",
     calories: 520,
+    category: "Burgers",
   ),
 
   FoodModel(
@@ -21,6 +22,7 @@ final List<FoodModel> foodList = [
     description:
         "Freshly baked pepper pizza loaded with mozzarella cheese, tomato sauce and delicious toppings.",
     calories: 690,
+    category: "Pizza",
   ),
 
   FoodModel(
@@ -32,5 +34,6 @@ final List<FoodModel> foodList = [
     description:
         "Golden crispy French fries made from premium potatoes, lightly seasoned with sea salt and served with tomato ketchup.",
     calories: 380,
+    category: "Snacks",
   ),
 ];

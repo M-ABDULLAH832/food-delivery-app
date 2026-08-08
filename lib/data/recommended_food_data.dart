@@ -1,37 +1,39 @@
 import '../models/food_model.dart';
-import '../utils/app_images.dart';
 
-final List<FoodModel> recommendedFoods = [
+final List<FoodModel> recommendedFoodList = [
   FoodModel(
-    name: "Double Burger",
-    image: AppImages.burger2,
-    price: 1099.0,
-    rating: 4.9,
-    time: "18 min",
-    description:
-        "Double juicy chicken patties with melted cheddar cheese, fresh lettuce, tomatoes and our signature burger sauce.",
-    calories: 720,
-  ),
-
-  FoodModel(
-    name: "Cold Drink",
-    image: AppImages.drink,
-    price: 299.0,
-    rating: 4.6,
-    time: "5 min",
-    description:
-        "Refreshing chilled soft drink served with ice. Perfect to enjoy with burgers, pizza and fries.",
-    calories: 180,
-  ),
-
-  FoodModel(
-    name: "Dessert",
-    image: AppImages.dessert,
-    price: 699.0,
+    name: "Cheese Burger",
+    image: "assets/images/burger.png",
+    price: 899.0,
     rating: 4.8,
-    time: "12 min",
+    time: "15 min",
+    category: "Burgers",
     description:
-        "Delicious chocolate dessert topped with cream and colorful sprinkles. Sweet, soft and freshly prepared.",
-    calories: 450,
+        "Juicy grilled chicken burger with fresh lettuce, cheddar cheese and our special signature sauce.",
+    calories: 520,
+  ),
+
+  FoodModel(
+    name: "Pepper Pizza",
+    image: "assets/images/pizza.png",
+    price: 1250.0,
+    rating: 4.9,
+    time: "20 min",
+    category: "Pizza",
+    description:
+        "Freshly baked pepper pizza loaded with mozzarella cheese, tomato sauce and delicious toppings.",
+    calories: 690,
+  ),
+
+  FoodModel(
+    name: "French Fries",
+    image: "assets/images/fries.png",
+    price: 549.0,
+    rating: 4.7,
+    time: "10 min",
+    category: "Snacks",
+    description:
+        "Golden crispy French fries made from premium potatoes, lightly seasoned with sea salt and served with tomato ketchup.",
+    calories: 380,
   ),
 ];

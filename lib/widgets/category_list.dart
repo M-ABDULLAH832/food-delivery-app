@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/search_provider.dart';
 import '../utils/app_colors.dart';
 
 class CategoryList extends StatelessWidget {
@@ -6,69 +9,72 @@ class CategoryList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categories = [
-      {"icon": Icons.lunch_dining, "title": "Burger"},
-      {"icon": Icons.local_pizza, "title": "Pizza"},
-      {"icon": Icons.emoji_food_beverage, "title": "Drinks"},
-      {"icon": Icons.icecream, "title": "Dessert"},
-      {"icon": Icons.fastfood, "title": "Snacks"},
-    ];
+    return Consumer<SearchProvider>(
+      builder: (context, searchProvider, child) {
+        final categories = searchProvider.categories;
 
-    return SizedBox(
-      height: 120,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: categories.length,
-        itemBuilder: (context, index) {
-          return Container(
-            width: 90,
-            margin: const EdgeInsets.only(right: 16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  height: 58,
-                  width: 58,
+        return SizedBox(
+          height: 48,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: categories.length,
+            separatorBuilder: (context, index) {
+              return const SizedBox(width: 12);
+            },
+            itemBuilder: (context, index) {
+              final category = categories[index];
+              final isSelected =
+                  searchProvider.selectedCategory == category;
+
+              return GestureDetector(
+                onTap: () {
+                  searchProvider.selectCategory(category);
+                },
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 250),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 22,
+                    vertical: 12,
+                  ),
                   decoration: BoxDecoration(
-                    color: index == 0
+                    color: isSelected
                         ? AppColors.primary
                         : Colors.white,
-                    borderRadius: BorderRadius.circular(18),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.05),
-                        blurRadius: 12,
-                        offset: const Offset(0, 5),
-                      ),
-                    ],
+                    borderRadius: BorderRadius.circular(25),
+                    border: Border.all(
+                      color: isSelected
+                          ? AppColors.primary
+                          : AppColors.border,
+                    ),
+                    boxShadow: isSelected
+                        ? [
+                            BoxShadow(
+                              color: AppColors.primary.withValues(
+                                alpha: 0.20,
+                              ),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ]
+                        : null,
                   ),
-                  child: Icon(
-                    categories[index]["icon"] as IconData,
-                    color: index == 0
-                        ? Colors.white
-                        : AppColors.primary,
-                    size: 28,
+                  child: Text(
+                    category,
+                    style: TextStyle(
+                      color: isSelected
+                          ? Colors.white
+                          : AppColors.heading,
+                      fontWeight: isSelected
+                          ? FontWeight.bold
+                          : FontWeight.w500,
+                    ),
                   ),
                 ),
-
-                const SizedBox(height: 10),
-
-                Text(
-                  categories[index]["title"] as String,
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black87,
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
