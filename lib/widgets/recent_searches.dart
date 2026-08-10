@@ -11,7 +11,9 @@ class RecentSearches extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<SearchProvider>(
       builder: (context, searchProvider, child) {
-        if (searchProvider.recentSearches.isEmpty) {
+        final recentSearches = searchProvider.recentSearches;
+
+        if (recentSearches.isEmpty) {
           return const SizedBox.shrink();
         }
 
@@ -50,10 +52,8 @@ class RecentSearches extends StatelessWidget {
                   ),
                 ],
               ),
-
               const SizedBox(height: 8),
-
-              ...searchProvider.recentSearches.map(
+              ...recentSearches.map(
                 (search) {
                   return ListTile(
                     contentPadding: EdgeInsets.zero,
@@ -64,6 +64,8 @@ class RecentSearches extends StatelessWidget {
                     ),
                     title: Text(
                       search,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontSize: 15,
                       ),
