@@ -25,11 +25,10 @@ class _HomeScreenState extends State<HomeScreen> {
     final searchProvider = context.watch<SearchProvider>();
 
     final foods = searchProvider.filteredFoods;
-    final bool isSearching = searchProvider.query.trim().isNotEmpty;
+    final bool isFiltering = searchProvider.isFiltering;
 
     return Scaffold(
       backgroundColor: const Color(0xffF5F8FC),
-
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -50,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               const SizedBox(height: 26),
 
-              if (!isSearching) ...[
+              if (!isFiltering) ...[
                 const HeroBanner(),
 
                 const SizedBox(height: 30),
@@ -75,9 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    isSearching
-                        ? "Search Results"
-                        : "Popular Foods",
+                    isFiltering ? "Filtered Foods" : "Popular Foods",
                     style: const TextStyle(
                       fontSize: 27,
                       fontWeight: FontWeight.bold,
@@ -85,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
 
-                  if (!isSearching)
+                  if (!isFiltering)
                     TextButton(
                       onPressed: () {},
                       child: const Text(
@@ -117,18 +114,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
 
-              if (!isSearching) ...[
+              if (!isFiltering) ...[
                 const SizedBox(height: 32),
-
                 const RecommendedFoodSection(),
-
                 const SizedBox(height: 10),
               ],
             ],
           ),
         ),
       ),
-
       bottomNavigationBar: CustomBottomNav(
         currentIndex: currentIndex,
         onTap: (index) {
@@ -158,9 +152,7 @@ class _NoSearchResults extends StatelessWidget {
             width: 90,
             height: 90,
             decoration: BoxDecoration(
-              color: Colors.grey.withValues(
-                alpha: 0.10,
-              ),
+              color: Colors.grey.withValues(alpha: 0.10),
               shape: BoxShape.circle,
             ),
             child: const Icon(
