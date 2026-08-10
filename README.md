@@ -1,143 +1,212 @@
 # 🍔 Food Delivery App
 
-A modern, responsive, and scalable **Food Delivery Application** built with **Flutter**.
+A modern Food Delivery mobile application built with Flutter and Dart.
 
-This project is being developed using **Flutter**, **Provider State Management**, and **Clean Architecture** with the goal of building a production-ready cross-platform application.
+This project is being developed as a Flutter learning and portfolio project, focusing on clean UI, reusable widgets, state management, and a complete food ordering experience.
 
----
+## 🚀 Current Version
+
+**Version 0.4**
 
 ## ✨ Features
 
-### ✅ Completed
-
 - 🏠 Modern Home Screen
-- 🎯 Hero Banner
-- 🍔 Food Details Screen
-- 🍕 Categories
-- ⭐ Popular & Recommended Foods
-- 🛒 Shopping Cart
-- ➕ Add to Cart
-- ➖ Increase / Decrease Quantity
-- 🗑 Remove Items
-- 💰 Live Order Summary
-- 🔴 Dynamic Cart Badge
-- 📱 Responsive UI
-- ⚡ Provider State Management
-- ♻️ Reusable Widgets
+- 🔍 Food Search
+- 🍔 Food Categories
+- ⭐ Food Ratings
+- 📋 Food Details
+- ❤️ Favorites System
+- 🛒 Add to Cart
+- ➕ Increase Quantity
+- ➖ Decrease Quantity
+- 🗑️ Remove Cart Items
+- 💰 Automatic Cart Total
+- 🔢 Cart Item Badge
+- 🧹 Clear Cart
+- 👤 Profile Screen
+- 🔄 Bottom Navigation
+- 📱 Clean Flutter UI
+- 🎨 Reusable Custom Widgets
 
----
-
-## 🚀 Upcoming Features
-
-- 🔍 Smart Search
-- ❤️ Favorites
-- 🍕 Category Filtering
-- 👤 User Authentication
-- ☁ Firebase Integration
-- 📍 Google Maps
-- 🚚 Live Order Tracking
-- 💳 Payment Gateway
-- 🌙 Dark Mode
-- 🌐 Localization
-- 🔔 Push Notifications
-
----
-
-## 🛠 Tech Stack
+## 🛠️ Technologies Used
 
 - Flutter
 - Dart
 - Provider
 - Material Design
-
----
+- VS Code
+- Git
+- GitHub
 
 ## 📂 Project Structure
 
 ```text
-lib
-├── data
-├── models
-├── providers
-├── repositories
-├── screens
-├── services
-├── utils
-├── widgets
+lib/
+│
+├── data/
+│   ├── food_data.dart
+│   └── recommended_food_data.dart
+│
+├── models/
+│   └── food_model.dart
+│
+├── providers/
+│   ├── cart_provider.dart
+│   ├── favorite_provider.dart
+│   └── search_provider.dart
+│
+├── screens/
+│   ├── home_screen.dart
+│   ├── food_details_screen.dart
+│   ├── cart_screen.dart
+│   ├── favorites_screen.dart
+│   └── profile_screen.dart
+│
+├── widgets/
+│   ├── cart/
+│   │   └── cart_item.dart
+│   ├── category_list.dart
+│   ├── custom_bottom_nav.dart
+│   ├── food_card.dart
+│   ├── header_section.dart
+│   ├── hero_banner.dart
+│   ├── recent_searches.dart
+│   ├── recommended_food_section.dart
+│   └── search_bar_widget.dart
+│
+├── utils/
+│   └── app_theme.dart
+│
 └── main.dart
 ```
 
----
+## 🏠 Home Screen
+
+The Home Screen includes:
+
+- Header section
+- Search bar
+- Hero banner
+- Food categories
+- Popular food section
+- Recommended food section
+- Bottom navigation
+
+## 🔍 Search
+
+Users can search for food items using the search bar.
+
+The search system checks:
+
+- Food name
+- Food description
+
+Search state is managed using `SearchProvider`.
+
+## ❤️ Favorites
+
+Users can add food items to their favorites and remove them whenever needed.
+
+Favorites are managed using `FavoriteProvider`.
+
+## 🛒 Cart
+
+The cart system allows users to:
+
+- Add food items
+- Increase quantity
+- Decrease quantity
+- Remove individual items
+- Clear the complete cart
+- View total number of items
+- View the total price
+
+Cart state is managed using `CartProvider`.
+
+## 📋 Food Details
+
+Users can open a food item and view its:
+
+- Name
+- Image
+- Price
+- Rating
+- Preparation time
+- Description
+- Calories
+- Category
+
+Users can also add the selected food to the cart.
+
+## 👤 Profile
+
+The current version includes a Profile Screen accessible through the bottom navigation.
+
+## 🔄 Bottom Navigation
+
+The application currently provides navigation for:
+
+- 🏠 Home
+- ❤️ Favorites
+- 🛒 Cart
+- 👤 Profile
+
+The cart icon also displays the current number of items in the cart.
+
+## 🧩 State Management
+
+This project uses **Provider** for state management.
+
+### Providers
+
+```text
+CartProvider
+FavoriteProvider
+SearchProvider
+```
+
+## 🎨 UI & Design
+
+The application focuses on:
+
+- Clean and modern UI
+- Reusable widgets
+- Consistent colors
+- Rounded cards
+- Food-focused visual design
+- Simple and user-friendly navigation
 
 ## 📸 Screenshots
 
-Screenshots will be added in future updates.
+Screenshots of the application will be added to this section.
 
----
+## 🔮 Future Plans
 
-## 📈 Version History
+Future versions of the application may include:
 
-| Version | Status | Description |
-|----------|--------|-------------|
-| v0.1 | ✅ Completed | Home Screen UI |
-| v0.2 | ✅ Completed | Food Details Screen |
-| v0.3 | ✅ Completed | Provider & Cart Foundation |
-| v0.3.1 | ✅ Completed | Shopping Cart Module |
-| v0.4 | 🚧 In Progress | Smart Search System |
+- More food items
+- More food categories
+- Advanced category filtering
+- Checkout system
+- Order placement
+- Order tracking
+- User authentication
+- Backend/API integration
+- Improved animations
+- Additional UI improvements
 
----
+## 📌 Project Status
 
-## ⚙️ Installation
+The project is actively being developed as a Flutter learning and portfolio project.
 
-### Clone Repository
+### Current Version: 0.4
 
-```bash
-git clone https://github.com/M-ABDULLAH832/food-delivery-app.git
-```
-
-### Navigate to Project
-
-```bash
-cd food-delivery-app
-```
-
-### Install Dependencies
-
-```bash
-flutter pub get
-```
-
-### Run the App
-
-```bash
-flutter run
-```
-
----
-
-## 🎯 Goals
-
-- Clean Architecture
-- Scalable Codebase
-- Cross-Platform Support
-- High Performance
-- Production Ready
-- Modern UI/UX
-
----
+The main UI, search, favorites, cart management, food details, profile, and navigation features are currently implemented.
 
 ## 👨‍💻 Developer
 
-**Muhammad Abdullah**
-
-BS Information Technology Student
-
-Flutter Developer
-
-GitHub: https://github.com/M-ABDULLAH832
+**M. Abdullah**
 
 ---
 
-## ⭐ Support
-
-If you like this project, please consider giving it a **Star ⭐** on GitHub.
+⭐ Thanks for checking out this project!
