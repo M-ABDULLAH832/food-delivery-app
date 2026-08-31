@@ -17,7 +17,8 @@ class FoodCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isFavorite = context.watch<FavoriteProvider>().isFavorite(food);
+    final isFavorite =
+        context.watch<FavoriteProvider>().isFavorite(food);
 
     return GestureDetector(
       onTap: () {
@@ -63,11 +64,7 @@ class FoodCard extends StatelessWidget {
                         width: 130,
                         height: 130,
                         fit: BoxFit.contain,
-                        errorBuilder: (
-                          context,
-                          error,
-                          stackTrace,
-                        ) {
+                        errorBuilder: (context,error, stackTrace) {
                           return const Icon(
                             Icons.fastfood_rounded,
                             size: 70,
@@ -77,7 +74,6 @@ class FoodCard extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   Positioned(
                     top: 12,
                     right: 12,
@@ -95,9 +91,8 @@ class FoodCard extends StatelessWidget {
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withValues(
-                                alpha: 0.08,
-                              ),
+                              color:
+                                  Colors.black.withValues(alpha: 0.08),
                               blurRadius: 8,
                             ),
                           ],
@@ -117,7 +112,6 @@ class FoodCard extends StatelessWidget {
                 ],
               ),
             ),
-
             Expanded(
               flex: 5,
               child: Padding(
@@ -134,9 +128,7 @@ class FoodCard extends StatelessWidget {
                         fontSize: 18,
                       ),
                     ),
-
                     const SizedBox(height: 9),
-
                     Row(
                       children: [
                         const Icon(
@@ -168,9 +160,7 @@ class FoodCard extends StatelessWidget {
                         ),
                       ],
                     ),
-
                     const Spacer(),
-
                     Row(
                       children: [
                         Text(
@@ -181,21 +171,17 @@ class FoodCard extends StatelessWidget {
                             fontSize: 21,
                           ),
                         ),
-
                         const Spacer(),
-
                         GestureDetector(
                           onTap: () {
                             context
                                 .read<CartProvider>()
                                 .addToCart(food);
 
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(
+                            ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(
-                                  "${food.name} added to cart",
-                                ),
+                                content:
+                                    Text("${food.name} added to cart"),
                                 duration:
                                     const Duration(seconds: 1),
                               ),

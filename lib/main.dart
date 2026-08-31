@@ -4,8 +4,9 @@ import 'package:provider/provider.dart';
 import 'data/food_data.dart';
 import 'providers/cart_provider.dart';
 import 'providers/favorite_provider.dart';
+import 'providers/order_provider.dart';
 import 'providers/search_provider.dart';
-import 'screens/home_screen.dart';
+import 'screens/main_screen.dart';
 import 'utils/app_theme.dart';
 
 void main() {
@@ -22,21 +23,21 @@ class FoodDeliveryApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => CartProvider(),
         ),
-
         ChangeNotifierProvider(
           create: (_) => SearchProvider(foodList),
         ),
-
         ChangeNotifierProvider(
           create: (_) => FavoriteProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => OrderProvider(),
+        ),
       ],
-
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: "Food Delivery",
         theme: AppTheme.lightTheme,
-        home: const HomeScreen(),
+        home: const MainScreen(),
       ),
     );
   }

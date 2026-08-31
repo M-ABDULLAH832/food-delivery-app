@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/cart_provider.dart';
-import '../screens/cart_screen.dart';
-import '../screens/favorites_screen.dart';
-import '../screens/profile_screen.dart';
 import '../utils/app_colors.dart';
 
 class CustomBottomNav extends StatelessWidget {
@@ -17,47 +14,11 @@ class CustomBottomNav extends StatelessWidget {
     required this.onTap,
   });
 
-  void _handleTap(BuildContext context, int index) {
-    if (index == 1) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => const FavoritesScreen(),
-        ),
-      );
-      return;
-    }
-
-    if (index == 2) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => const CartScreen(),
-        ),
-      );
-      return;
-    }
-
-    if (index == 3) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => const ProfileScreen(),
-        ),
-      );
-      return;
-    }
-
-    onTap(index);
-  }
-
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: currentIndex,
-      onTap: (index) {
-        _handleTap(context, index);
-      },
+      onTap: onTap,
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.white,
       selectedItemColor: AppColors.primary,
@@ -80,8 +41,13 @@ class CustomBottomNav extends StatelessWidget {
 
         BottomNavigationBarItem(
           icon: Consumer<CartProvider>(
-            builder: (context, cartProvider, child) {
-              final int count = cartProvider.totalItems;
+            builder: (
+              context,
+              cartProvider,
+              child,
+            ) {
+              final count =
+                  cartProvider.totalItems;
 
               return Badge(
                 isLabelVisible: count > 0,
@@ -101,6 +67,13 @@ class CustomBottomNav extends StatelessWidget {
             },
           ),
           label: "Cart",
+        ),
+
+        const BottomNavigationBarItem(
+          icon: Icon(
+            Icons.receipt_long_rounded,
+          ),
+          label: "Orders",
         ),
 
         const BottomNavigationBarItem(

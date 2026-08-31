@@ -5,6 +5,7 @@ import '../providers/cart_provider.dart';
 import '../utils/app_colors.dart';
 import '../widgets/cart/cart_item.dart';
 import '../widgets/cart/empty_cart.dart';
+import 'checkout_screen.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -13,12 +14,13 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.background,
         centerTitle: true,
         title: const Text(
-          "My Cart",
+          'My Cart',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.black,
@@ -29,7 +31,11 @@ class CartScreen extends StatelessWidget {
         ),
         actions: [
           Consumer<CartProvider>(
-            builder: (context, cartProvider, child) {
+            builder: (
+              context,
+              cartProvider,
+              child,
+            ) {
               if (cartProvider.cartItems.isEmpty) {
                 return const SizedBox.shrink();
               }
@@ -47,8 +53,13 @@ class CartScreen extends StatelessWidget {
           ),
         ],
       ),
+
       body: Consumer<CartProvider>(
-        builder: (context, cartProvider, child) {
+        builder: (
+          context,
+          cartProvider,
+          child,
+        ) {
           if (cartProvider.cartItems.isEmpty) {
             return const EmptyCart();
           }
@@ -63,9 +74,14 @@ class CartScreen extends StatelessWidget {
                     20,
                     20,
                   ),
-                  itemCount: cartProvider.cartItems.length,
-                  itemBuilder: (context, index) {
-                    final food = cartProvider.cartItems[index];
+                  itemCount:
+                      cartProvider.cartItems.length,
+                  itemBuilder: (
+                    context,
+                    index,
+                  ) {
+                    final food =
+                        cartProvider.cartItems[index];
 
                     return CartItem(
                       food: food,
@@ -84,34 +100,42 @@ class CartScreen extends StatelessWidget {
     );
   }
 
-  void _showClearCartDialog(BuildContext context) {
+  void _showClearCartDialog(
+    BuildContext context,
+  ) {
     showDialog(
       context: context,
       builder: (dialogContext) {
         return AlertDialog(
           title: const Text(
-            "Clear Cart?",
+            'Clear Cart?',
             style: TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
           content: const Text(
-            "Are you sure you want to remove all items from your cart?",
+            'Are you sure you want to remove all items from your cart?',
           ),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(dialogContext);
               },
-              child: const Text("Cancel"),
+              child: const Text(
+                'Cancel',
+              ),
             ),
+
             TextButton(
               onPressed: () {
-                context.read<CartProvider>().clearCart();
+                context
+                    .read<CartProvider>()
+                    .clearCart();
+
                 Navigator.pop(dialogContext);
               },
               child: const Text(
-                "Clear",
+                'Clear',
                 style: TextStyle(
                   color: Colors.red,
                 ),
@@ -135,8 +159,11 @@ class _CartSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     const double deliveryFee = 100;
 
-    final double subtotal = cartProvider.totalPrice;
-    final double total = subtotal + deliveryFee;
+    final double subtotal =
+        cartProvider.totalPrice;
+
+    final double total =
+        subtotal + deliveryFee;
 
     return Container(
       padding: const EdgeInsets.fromLTRB(
@@ -161,32 +188,39 @@ class _CartSummary extends StatelessWidget {
       child: Column(
         children: [
           _SummaryRow(
-            title: "Items",
-            value: "${cartProvider.totalItems}",
+            title: 'Items',
+            value:
+                '${cartProvider.totalItems}',
           ),
 
           const SizedBox(height: 12),
 
           _SummaryRow(
-            title: "Subtotal",
-            value: "Rs ${subtotal.toStringAsFixed(0)}",
+            title: 'Subtotal',
+            value:
+                'Rs ${subtotal.toStringAsFixed(0)}',
           ),
 
           const SizedBox(height: 12),
 
           _SummaryRow(
-            title: "Delivery Fee",
-            value: "Rs ${deliveryFee.toStringAsFixed(0)}",
+            title: 'Delivery Fee',
+            value:
+                'Rs ${deliveryFee.toStringAsFixed(0)}',
           ),
 
           const Padding(
-            padding: EdgeInsets.symmetric(vertical: 15),
+            padding:
+                EdgeInsets.symmetric(
+              vertical: 15,
+            ),
             child: Divider(),
           ),
 
           _SummaryRow(
-            title: "Total",
-            value: "Rs ${total.toStringAsFixed(0)}",
+            title: 'Total',
+            value:
+                'Rs ${total.toStringAsFixed(0)}',
             isTotal: true,
           ),
 
@@ -197,28 +231,32 @@ class _CartSummary extends StatelessWidget {
             height: 55,
             child: ElevatedButton(
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text(
-                      "Checkout feature coming soon!",
-                    ),
-                    duration: Duration(seconds: 2),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) =>
+                        const CheckoutScreen(),
                   ),
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                foregroundColor: Colors.white,
+                backgroundColor:
+                    AppColors.primary,
+                foregroundColor:
+                    Colors.white,
                 elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
+                shape:
+                    RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(16),
                 ),
               ),
               child: const Text(
-                "Proceed to Checkout",
+                'Proceed to Checkout',
                 style: TextStyle(
                   fontSize: 17,
-                  fontWeight: FontWeight.bold,
+                  fontWeight:
+                      FontWeight.bold,
                 ),
               ),
             ),
@@ -243,22 +281,36 @@ class _SummaryRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment:
+          MainAxisAlignment.spaceBetween,
       children: [
         Text(
           title,
           style: TextStyle(
-            fontSize: isTotal ? 19 : 15,
-            fontWeight: isTotal ? FontWeight.bold : FontWeight.normal,
-            color: isTotal ? Colors.black : Colors.grey.shade700,
+            fontSize:
+                isTotal ? 19 : 15,
+            fontWeight:
+                isTotal
+                    ? FontWeight.bold
+                    : FontWeight.normal,
+            color:
+                isTotal
+                    ? Colors.black
+                    : Colors.grey.shade700,
           ),
         ),
+
         Text(
           value,
           style: TextStyle(
-            fontSize: isTotal ? 20 : 15,
-            fontWeight: FontWeight.bold,
-            color: isTotal ? AppColors.primary : Colors.black,
+            fontSize:
+                isTotal ? 20 : 15,
+            fontWeight:
+                FontWeight.bold,
+            color:
+                isTotal
+                    ? AppColors.primary
+                    : Colors.black,
           ),
         ),
       ],

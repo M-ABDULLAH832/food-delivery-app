@@ -18,7 +18,7 @@ class CategoryList extends StatelessWidget {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: categories.length,
-            separatorBuilder: (context, index) {
+            separatorBuilder: (content, index) {
               return const SizedBox(width: 12);
             },
             itemBuilder: (context, index) {
@@ -46,17 +46,6 @@ class CategoryList extends StatelessWidget {
                           ? AppColors.primary
                           : AppColors.border,
                     ),
-                    boxShadow: isSelected
-                        ? [
-                            BoxShadow(
-                              color: AppColors.primary.withValues(
-                                alpha: 0.20,
-                              ),
-                              blurRadius: 10,
-                              offset: const Offset(0, 4),
-                            ),
-                          ]
-                        : null,
                   ),
                   child: Text(
                     category,

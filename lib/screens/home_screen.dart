@@ -3,29 +3,23 @@ import 'package:provider/provider.dart';
 
 import '../providers/search_provider.dart';
 import '../widgets/category_list.dart';
-import '../widgets/custom_bottom_nav.dart';
 import '../widgets/food_card.dart';
 import '../widgets/header_section.dart';
 import '../widgets/hero_banner.dart';
 import '../widgets/recommended_food_section.dart';
 import '../widgets/search_bar_widget.dart';
+import 'all_foods_screen.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     final searchProvider = context.watch<SearchProvider>();
 
     final foods = searchProvider.filteredFoods;
-    final bool isFiltering = searchProvider.isFiltering;
+    final bool isSearching =
+        searchProvider.query.trim().isNotEmpty;
 
     return Scaffold(
       backgroundColor: const Color(0xffF5F8FC),
@@ -49,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               const SizedBox(height: 26),
 
-              if (!isFiltering) ...[
+              if (!isSearching) ...[
                 const HeroBanner(),
 
                 const SizedBox(height: 30),
@@ -71,10 +65,13 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
 
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    isFiltering ? "Filtered Foods" : "Popular Foods",
+                    isSearching
+                        ? "Search Results"
+                        : "Popular Foods",
                     style: const TextStyle(
                       fontSize: 27,
                       fontWeight: FontWeight.bold,
@@ -82,9 +79,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
 
-                  if (!isFiltering)
+                  if (!isSearching)
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) =>
+                                const AllFoodsScreen(),
+                          ),
+                        );
+                      },
                       child: const Text(
                         "See All",
                         style: TextStyle(
@@ -103,7 +108,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: 320,
                   child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
+                    physics:
+                        const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     itemCount: foods.length,
                     itemBuilder: (context, index) {
@@ -114,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
 
-              if (!isFiltering) ...[
+              if (!isSearching) ...[
                 const SizedBox(height: 32),
                 const RecommendedFoodSection(),
                 const SizedBox(height: 10),
@@ -122,14 +128,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: CustomBottomNav(
-        currentIndex: currentIndex,
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
       ),
     );
   }
@@ -152,7 +150,9 @@ class _NoSearchResults extends StatelessWidget {
             width: 90,
             height: 90,
             decoration: BoxDecoration(
-              color: Colors.grey.withValues(alpha: 0.10),
+              color: Colors.grey.withValues(
+                alpha: 0.10,
+              ),
               shape: BoxShape.circle,
             ),
             child: const Icon(

@@ -4,27 +4,8 @@ import 'package:provider/provider.dart';
 import '../providers/search_provider.dart';
 import '../utils/app_colors.dart';
 
-class SearchBarWidget extends StatefulWidget {
+class SearchBarWidget extends StatelessWidget {
   const SearchBarWidget({super.key});
-
-  @override
-  State<SearchBarWidget> createState() => _SearchBarWidgetState();
-}
-
-class _SearchBarWidgetState extends State<SearchBarWidget> {
-  late final TextEditingController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,13 +25,11 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
         ],
       ),
       child: TextField(
-        controller: _controller,
-        onChanged: (value) {
-          searchProvider.search(value);
-        },
-        onSubmitted: (value) {
+        onChanged: searchProvider.search,
+        onSubmitted: (_) {
           searchProvider.submitSearch();
         },
+        textInputAction: TextInputAction.search,
         decoration: InputDecoration(
           hintText: "Search food...",
           hintStyle: const TextStyle(
@@ -62,10 +41,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           ),
           suffixIcon: searchProvider.query.isNotEmpty
               ? IconButton(
-                  onPressed: () {
-                    _controller.clear();
-                    searchProvider.clearSearch();
-                  },
+                  onPressed: searchProvider.clearSearch,
                   icon: const Icon(
                     Icons.close_rounded,
                     color: Colors.grey,

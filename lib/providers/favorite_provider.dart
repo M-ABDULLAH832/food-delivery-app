@@ -5,10 +5,13 @@ import '../models/food_model.dart';
 class FavoriteProvider extends ChangeNotifier {
   final List<FoodModel> _favoriteItems = [];
 
-  List<FoodModel> get favoriteItems => _favoriteItems;
+  List<FoodModel> get favoriteItems =>
+      List.unmodifiable(_favoriteItems);
 
-  // Used by FavoritesScreen
-  List<FoodModel> get favoriteFoods => _favoriteItems;
+  List<FoodModel> get favoriteFoods =>
+      List.unmodifiable(_favoriteItems);
+
+  int get favoriteCount => _favoriteItems.length;
 
   bool isFavorite(FoodModel food) {
     return _favoriteItems.any(
@@ -39,11 +42,11 @@ class FavoriteProvider extends ChangeNotifier {
   }
 
   void clearFavorites() {
+    if (_favoriteItems.isEmpty) {
+      return;
+    }
+
     _favoriteItems.clear();
     notifyListeners();
-  }
-
-  int get favoriteCount {
-    return _favoriteItems.length;
   }
 }

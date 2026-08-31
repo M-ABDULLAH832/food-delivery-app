@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../utils/app_colors.dart';
+import 'order_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -9,7 +10,6 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-
       appBar: AppBar(
         backgroundColor: AppColors.background,
         elevation: 0,
@@ -22,19 +22,19 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
       ),
-
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(22),
         child: Column(
           children: [
             const SizedBox(height: 10),
 
-            // Profile Avatar
             Container(
               width: 105,
               height: 105,
               decoration: BoxDecoration(
-                color: AppColors.primary.withValues(alpha: 0.12),
+                color: AppColors.primary.withValues(
+                  alpha: 0.12,
+                ),
                 shape: BoxShape.circle,
               ),
               child: const Icon(
@@ -69,45 +69,69 @@ class ProfileScreen extends StatelessWidget {
             _ProfileOption(
               icon: Icons.person_outline_rounded,
               title: "Edit Profile",
-              subtitle: "Update your personal information",
+              subtitle:
+                  "Update your personal information",
               onTap: () {
-                _showComingSoon(context, "Edit Profile");
+                _showComingSoon(
+                  context,
+                  "Edit Profile",
+                );
               },
             ),
 
             _ProfileOption(
               icon: Icons.location_on_outlined,
               title: "My Address",
-              subtitle: "Manage your delivery addresses",
+              subtitle:
+                  "Manage your delivery addresses",
               onTap: () {
-                _showComingSoon(context, "My Address");
+                _showComingSoon(
+                  context,
+                  "My Address",
+                );
               },
             ),
 
             _ProfileOption(
               icon: Icons.receipt_long_outlined,
               title: "My Orders",
-              subtitle: "View your previous orders",
+              subtitle:
+                  "View your previous orders",
               onTap: () {
-                _showComingSoon(context, "My Orders");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) =>
+                        const OrderScreen(),
+                  ),
+                );
               },
             ),
 
             _ProfileOption(
-              icon: Icons.notifications_none_rounded,
+              icon:
+                  Icons.notifications_none_rounded,
               title: "Notifications",
-              subtitle: "Manage notification preferences",
+              subtitle:
+                  "Manage notification preferences",
               onTap: () {
-                _showComingSoon(context, "Notifications");
+                _showComingSoon(
+                  context,
+                  "Notifications",
+                );
               },
             ),
 
             _ProfileOption(
               icon: Icons.settings_outlined,
               title: "Settings",
-              subtitle: "App settings and preferences",
+              subtitle:
+                  "App settings and preferences",
               onTap: () {
-                _showComingSoon(context, "Settings");
+                _showComingSoon(
+                  context,
+                  "Settings",
+                );
               },
             ),
 
@@ -116,7 +140,8 @@ class ProfileScreen extends StatelessWidget {
             _ProfileOption(
               icon: Icons.logout_rounded,
               title: "Logout",
-              subtitle: "Sign out from your account",
+              subtitle:
+                  "Sign out from your account",
               iconColor: Colors.red,
               titleColor: Colors.red,
               onTap: () {
@@ -138,12 +163,15 @@ class ProfileScreen extends StatelessWidget {
         content: Text(
           "$feature feature coming soon!",
         ),
-        duration: const Duration(seconds: 2),
+        duration:
+            const Duration(seconds: 2),
       ),
     );
   }
 
-  void _showLogoutDialog(BuildContext context) {
+  void _showLogoutDialog(
+    BuildContext context,
+  ) {
     showDialog(
       context: context,
       builder: (dialogContext) {
@@ -168,7 +196,8 @@ class ProfileScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(dialogContext);
 
-                ScaffoldMessenger.of(context).showSnackBar(
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(
                   const SnackBar(
                     content: Text(
                       "Logout feature coming soon!",
@@ -190,7 +219,8 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-class _ProfileOption extends StatelessWidget {
+class _ProfileOption
+    extends StatelessWidget {
   final IconData icon;
   final String title;
   final String subtitle;
@@ -210,13 +240,16 @@ class _ProfileOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
+      margin:
+          const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
+        borderRadius:
+            BorderRadius.circular(18),
       ),
       child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(
+        contentPadding:
+            const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 6,
         ),
@@ -224,20 +257,27 @@ class _ProfileOption extends StatelessWidget {
           width: 48,
           height: 48,
           decoration: BoxDecoration(
-            color: (iconColor ?? AppColors.primary)
-                .withValues(alpha: 0.10),
-            borderRadius: BorderRadius.circular(14),
+            color:
+                (iconColor ??
+                        AppColors.primary)
+                    .withValues(alpha: 0.10),
+            borderRadius:
+                BorderRadius.circular(14),
           ),
           child: Icon(
             icon,
-            color: iconColor ?? AppColors.primary,
+            color: iconColor ??
+                AppColors.primary,
           ),
         ),
         title: Text(
           title,
           style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: titleColor ?? Colors.black,
+            fontWeight:
+                FontWeight.bold,
+            color:
+                titleColor ??
+                    Colors.black,
           ),
         ),
         subtitle: Text(

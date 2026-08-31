@@ -16,27 +16,46 @@ class SearchProvider extends ChangeNotifier {
 
   String get selectedCategory => _selectedCategory;
 
-  List<String> get recentSearches => List.unmodifiable(_recentSearches);
+  List<String> get recentSearches =>
+      List.unmodifiable(_recentSearches);
 
   List<String> get categories {
-    final categorySet = <String>{'All'};
+    final categories = <String>['All'];
 
     for (final food in _allFoods) {
-      categorySet.add(food.category);
+      if (!categories.contains(food.category)) {
+        categories.add(food.category);
+      }
     }
 
-    return categorySet.toList();
+    return categories;
   }
 
   List<FoodModel> get filteredFoods {
     final searchQuery = _query.trim().toLowerCase();
 
-    return _allFoods.where((food) {
-      final matchesSearch = searchQuery.isEmpty ||
-          food.name.toLowerCase().contains(searchQuery) ||
-          food.description.toLowerCase().contains(searchQuery);
+    if (searchQuery.isEmpty) {
+      if (_selectedCategory == 'All') {
+        return List<FoodModel>.from(_allFoods);
+      }
 
-      final matchesCategory = _selectedCategory == 'All' ||
+      return _allFoods
+          .where((food) => food.category == _selectedCategory)
+          .toList();
+    }
+
+    return _allFoods.where((food) {
+      final name = food.name.toLowerCase();
+      final description = food.description.toLowerCase();
+      final category = food.category.toLowerCase();
+
+      final matchesSearch =
+          name.contains(searchQuery) ||
+          description.contains(searchQuery) ||
+          category.contains(searchQuery);
+
+      final matchesCategory =
+          _selectedCategory == 'All' ||
           food.category == _selectedCategory;
 
       return matchesSearch && matchesCategory;
@@ -54,13 +73,13 @@ class SearchProvider extends ChangeNotifier {
   }
 
   void submitSearch() {
-    final searchValue = _query.trim();
+    final value = _query.trim();
 
-    if (searchValue.isEmpty) {
+    if (value.isEmpty) {
       return;
     }
 
-    _addToRecentSearches(searchValue);
+    _addToRecentSearches(value);
     notifyListeners();
   }
 

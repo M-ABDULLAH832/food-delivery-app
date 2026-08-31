@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/cart_provider.dart';
 import '../providers/favorite_provider.dart';
 import '../utils/app_colors.dart';
-import '../widgets/food_card.dart';
+import 'food_details_screen.dart';
 
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final favoriteProvider = context.watch<FavoriteProvider>();
-    final favorites = favoriteProvider.favoriteFoods;
+    final favorites = context.watch<FavoriteProvider>().favoriteFoods;
 
     return Scaffold(
       backgroundColor: AppColors.background,
-
       appBar: AppBar(
         backgroundColor: AppColors.background,
         elevation: 0,
@@ -43,35 +42,23 @@ class FavoritesScreen extends StatelessWidget {
             ),
         ],
       ),
-
       body: favorites.isEmpty
           ? const _EmptyFavorites()
-          : ListView(
-              padding: const EdgeInsets.all(22),
-              children: [
-                Text(
-                  "${favorites.length} Favorite${favorites.length == 1 ? '' : 's'}",
-                  style: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-
-                SizedBox(
-                  height: 320,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: favorites.length,
-                    itemBuilder: (context, index) {
-                      return FoodCard(
-                        food: favorites[index],
-                      );
-                    },
-                  ),
-                ),
-              ],
+          : GridView.builder(
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 30),
+              itemCount: favorites.length,
+              gridDelegate:
+                  const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 14,
+                mainAxisSpacing: 14,
+                childAspectRatio: 0.68,
+              ),
+              itemBuilder: (context, index) {
+                return _FavoriteCard(
+                  food: favorites[index],
+                );
+              },
             ),
     );
   }
@@ -105,9 +92,7 @@ class FavoritesScreen extends StatelessWidget {
 
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text(
-                      "Favorites cleared",
-                    ),
+                    content: Text("Favorites cleared"),
                   ),
                 );
               },
@@ -121,6 +106,196 @@ class FavoritesScreen extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+class _FavoriteCard extends StatelessWidget {
+  final dynamic food;
+
+  const _FavoriteCard({
+    required this.food,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final favoriteProvider = context.watch<FavoriteProvider>();
+    final cartProvider = context.read<CartProvider>();
+
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => FoodDetailsScreen(
+              food: food,
+            ),
+          ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(22),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.06),
+              blurRadius: 12,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              flex: 6,
+              child: Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      color: Color(0xffFFF4EC),
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(22),
+                      ),
+                    ),
+                    child: Image.asset(
+                      food.image,
+                      fit: BoxFit.contain,
+                      errorBuilder: (
+                        context,
+                        error,
+                        stackTrace,
+                      ) {
+                        return const Icon(
+                          Icons.fastfood_rounded,
+                          color: AppColors.primary,
+                          size: 55,
+                        );
+                      },
+                    ),
+                  ),
+                  Positioned(
+                    top: 10,
+                    right: 10,
+                    child: GestureDetector(
+                      onTap: () {
+                        favoriteProvider.removeFavorite(food);
+                      },
+                      child: Container(
+                        width: 36,
+                        height: 36,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.favorite_rounded,
+                          color: Colors.red,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment:
+                      CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      food.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 7),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.star_rounded,
+                          color: Colors.amber,
+                          size: 17,
+                        ),
+                        const SizedBox(width: 3),
+                        Text(
+                          food.rating.toString(),
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const Spacer(),
+                        Text(
+                          food.time,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "Rs ${food.price.toStringAsFixed(0)}",
+                            style: const TextStyle(
+                              color: AppColors.primary,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            cartProvider.addToCart(food);
+
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  "${food.name} added to cart",
+                                ),
+                                duration:
+                                    const Duration(seconds: 1),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            width: 38,
+                            height: 38,
+                            decoration: BoxDecoration(
+                              color: AppColors.primary,
+                              borderRadius:
+                                  BorderRadius.circular(12),
+                            ),
+                            child: const Icon(
+                              Icons.add_rounded,
+                              color: Colors.white,
+                              size: 22,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -149,9 +324,7 @@ class _EmptyFavorites extends StatelessWidget {
                 color: Colors.red,
               ),
             ),
-
             const SizedBox(height: 22),
-
             const Text(
               "No Favorites Yet",
               style: TextStyle(
@@ -159,9 +332,7 @@ class _EmptyFavorites extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-
             const SizedBox(height: 10),
-
             const Text(
               "Tap the heart icon on a food item\nto add it to your favorites.",
               textAlign: TextAlign.center,
