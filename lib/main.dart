@@ -6,11 +6,28 @@ import 'providers/cart_provider.dart';
 import 'providers/favorite_provider.dart';
 import 'providers/order_provider.dart';
 import 'providers/search_provider.dart';
-import 'screens/main_screen.dart';
-import 'utils/app_theme.dart';
+import 'screens/login_screen.dart';
 
 void main() {
-  runApp(const FoodDeliveryApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => CartProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => FavoriteProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => SearchProvider(foodList),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => OrderProvider(),
+        ),
+      ],
+      child: const FoodDeliveryApp(),
+    ),
+  );
 }
 
 class FoodDeliveryApp extends StatelessWidget {
@@ -18,27 +35,16 @@ class FoodDeliveryApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => CartProvider(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Food Delivery App',
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xffFF6B35),
         ),
-        ChangeNotifierProvider(
-          create: (_) => SearchProvider(foodList),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => FavoriteProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => OrderProvider(),
-        ),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: "Food Delivery",
-        theme: AppTheme.lightTheme,
-        home: const MainScreen(),
       ),
+      home: const LoginScreen(),
     );
   }
 }
