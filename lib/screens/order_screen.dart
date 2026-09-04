@@ -23,7 +23,7 @@ class OrderScreen extends StatelessWidget {
           color: Colors.black,
         ),
         title: const Text(
-          "My Orders",
+          'My Orders',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -80,7 +80,7 @@ class _OrderCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  "Order #${order.id}",
+                  'Order #${order.id}',
                   style: const TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
@@ -93,9 +93,7 @@ class _OrderCard extends StatelessWidget {
                   vertical: 6,
                 ),
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withValues(
-                    alpha: 0.10,
-                  ),
+                  color: AppColors.primary.withValues(alpha: 0.10),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
@@ -109,9 +107,7 @@ class _OrderCard extends StatelessWidget {
               ),
             ],
           ),
-
           const SizedBox(height: 8),
-
           Text(
             _formatDate(order.orderDate),
             style: const TextStyle(
@@ -119,15 +115,11 @@ class _OrderCard extends StatelessWidget {
               fontSize: 13,
             ),
           ),
-
           const SizedBox(height: 18),
-
           ...order.items.map(
             (food) {
               return Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 12,
-                ),
+                padding: const EdgeInsets.only(bottom: 12),
                 child: Row(
                   children: [
                     Container(
@@ -140,8 +132,11 @@ class _OrderCard extends StatelessWidget {
                       child: Image.asset(
                         food.image,
                         fit: BoxFit.contain,
-                        errorBuilder:
-                            (context, error, stackTrace) {
+                        errorBuilder: (
+                          context,
+                          error,
+                          stackTrace,
+                        ) {
                           return const Icon(
                             Icons.fastfood_rounded,
                             color: AppColors.primary,
@@ -149,9 +144,7 @@ class _OrderCard extends StatelessWidget {
                         },
                       ),
                     ),
-
                     const SizedBox(width: 12),
-
                     Expanded(
                       child: Column(
                         crossAxisAlignment:
@@ -167,7 +160,7 @@ class _OrderCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            "Qty: ${food.quantity}",
+                            'Qty: ${food.quantity}',
                             style: const TextStyle(
                               color: Colors.grey,
                               fontSize: 13,
@@ -176,9 +169,8 @@ class _OrderCard extends StatelessWidget {
                         ],
                       ),
                     ),
-
                     Text(
-                      "Rs ${(food.price * food.quantity).toStringAsFixed(0)}",
+                      'Rs ${(food.price * food.quantity).toStringAsFixed(0)}',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -188,34 +180,23 @@ class _OrderCard extends StatelessWidget {
               );
             },
           ),
-
           const Divider(height: 20),
-
           _OrderInfoRow(
-            title: "Subtotal",
-            value:
-                "Rs ${order.subtotal.toStringAsFixed(0)}",
+            title: 'Subtotal',
+            value: 'Rs ${order.subtotal.toStringAsFixed(0)}',
           ),
-
           const SizedBox(height: 8),
-
           _OrderInfoRow(
-            title: "Delivery Fee",
-            value:
-                "Rs ${order.deliveryFee.toStringAsFixed(0)}",
+            title: 'Delivery Fee',
+            value: 'Rs ${order.deliveryFee.toStringAsFixed(0)}',
           ),
-
           const SizedBox(height: 8),
-
           _OrderInfoRow(
-            title: "Total",
-            value:
-                "Rs ${order.total.toStringAsFixed(0)}",
+            title: 'Total',
+            value: 'Rs ${order.total.toStringAsFixed(0)}',
             isTotal: true,
           ),
-
           const SizedBox(height: 15),
-
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
@@ -223,8 +204,7 @@ class _OrderCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Icon(
                   Icons.location_on_outlined,
@@ -244,9 +224,7 @@ class _OrderCard extends StatelessWidget {
               ],
             ),
           ),
-
           const SizedBox(height: 10),
-
           Row(
             children: [
               const Icon(
@@ -270,11 +248,11 @@ class _OrderCard extends StatelessWidget {
   }
 
   String _formatDate(DateTime date) {
-    return "${date.day.toString().padLeft(2, '0')}/"
-        "${date.month.toString().padLeft(2, '0')}/"
-        "${date.year} • "
-        "${date.hour.toString().padLeft(2, '0')}:"
-        "${date.minute.toString().padLeft(2, '0')}";
+    return '${date.day.toString().padLeft(2, '0')}/'
+        '${date.month.toString().padLeft(2, '0')}/'
+        '${date.year} • '
+        '${date.hour.toString().padLeft(2, '0')}:'
+        '${date.minute.toString().padLeft(2, '0')}';
   }
 }
 
@@ -292,19 +270,16 @@ class _OrderInfoRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment:
-          MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           title,
           style: TextStyle(
             fontSize: isTotal ? 17 : 14,
-            fontWeight: isTotal
-                ? FontWeight.bold
-                : FontWeight.normal,
-            color: isTotal
-                ? Colors.black
-                : Colors.grey.shade700,
+            fontWeight:
+                isTotal ? FontWeight.bold : FontWeight.normal,
+            color:
+                isTotal ? Colors.black : Colors.grey.shade700,
           ),
         ),
         Text(
@@ -312,9 +287,8 @@ class _OrderInfoRow extends StatelessWidget {
           style: TextStyle(
             fontSize: isTotal ? 18 : 14,
             fontWeight: FontWeight.bold,
-            color: isTotal
-                ? AppColors.primary
-                : Colors.black,
+            color:
+                isTotal ? AppColors.primary : Colors.black,
           ),
         ),
       ],
@@ -331,16 +305,13 @@ class _EmptyOrders extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(30),
         child: Column(
-          mainAxisAlignment:
-              MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               width: 110,
               height: 110,
               decoration: BoxDecoration(
-                color: AppColors.primary.withValues(
-                  alpha: 0.10,
-                ),
+                color: AppColors.primary.withValues(alpha: 0.10),
                 shape: BoxShape.circle,
               ),
               child: const Icon(
@@ -349,21 +320,17 @@ class _EmptyOrders extends StatelessWidget {
                 color: AppColors.primary,
               ),
             ),
-
             const SizedBox(height: 22),
-
             const Text(
-              "No Orders Yet",
+              'No Orders Yet',
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
               ),
             ),
-
             const SizedBox(height: 10),
-
             const Text(
-              "Your placed orders will appear here.",
+              'Your placed orders will appear here.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.grey,

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/app_colors.dart';
@@ -16,24 +17,72 @@ class _ForgotPasswordScreenState
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
 
+  bool isLoading = false;
+
   @override
   void dispose() {
     emailController.dispose();
     super.dispose();
   }
 
-  void sendResetLink() {
+  Future<void> sendResetLink() async {
     if (!formKey.currentState!.validate()) {
       return;
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text(
-          'Password reset link sent successfully',
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(
+        email: emailController.text.trim(),
+      );
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Password reset link sent to your email.',
+          ),
         ),
-      ),
-    );
+      );
+    } on FirebaseAuthException catch (e) {
+      String message;
+
+      if (e.code == 'invalid-email') {
+        message = 'Please enter a valid email address.';
+      } else if (e.code == 'user-not-found') {
+        message = 'No account found with this email.';
+      } else {
+        message = 'Unable to send reset link. Please try again.';
+      }
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(message),
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Something went wrong. Please try again.',
+            ),
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
   }
 
   @override
@@ -77,9 +126,7 @@ class _ForgotPasswordScreenState
                         ),
                       ),
                     ),
-
                     const SizedBox(height: 28),
-
                     const Center(
                       child: Text(
                         'Forgot Password?',
@@ -89,9 +136,7 @@ class _ForgotPasswordScreenState
                         ),
                       ),
                     ),
-
                     const SizedBox(height: 10),
-
                     const Center(
                       child: Text(
                         'Enter your email and we will send you a password reset link.',
@@ -103,22 +148,17 @@ class _ForgotPasswordScreenState
                         ),
                       ),
                     ),
-
                     const SizedBox(height: 35),
-
                     const Text(
                       'Email',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-
                     const SizedBox(height: 8),
-
                     TextFormField(
                       controller: emailController,
-                      keyboardType:
-                          TextInputType.emailAddress,
+                      keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         hintText: 'Enter your email',
                         prefixIcon: const Icon(
@@ -127,8 +167,7 @@ class _ForgotPasswordScreenState
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide.none,
                         ),
                       ),
@@ -146,44 +185,46 @@ class _ForgotPasswordScreenState
                         return null;
                       },
                     ),
-
                     const SizedBox(height: 28),
-
                     SizedBox(
                       width: double.infinity,
                       height: 55,
                       child: ElevatedButton(
-                        onPressed: sendResetLink,
+                        onPressed: isLoading ? null : sendResetLink,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              AppColors.primary,
+                          backgroundColor: AppColors.primary,
                           foregroundColor: Colors.white,
                           elevation: 0,
                           shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(16),
                           ),
                         ),
-                        child: const Text(
-                          'Send Reset Link',
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        child: isLoading
+                            ? const SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2.5,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : const Text(
+                                'Send Reset Link',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                       ),
                     ),
-
                     const SizedBox(height: 22),
-
                     Center(
                       child: GestureDetector(
                         onTap: () {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (_) =>
-                                  const LoginScreen(),
+                              builder: (_) => const LoginScreen(),
                             ),
                           );
                         },

@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import '../models/food_model.dart';
 
 class SearchProvider extends ChangeNotifier {
-  final List<FoodModel> _allFoods;
+  List<FoodModel> _allFoods;
 
   SearchProvider(this._allFoods);
 
@@ -66,6 +66,11 @@ class SearchProvider extends ChangeNotifier {
 
   bool get isFiltering =>
       _query.trim().isNotEmpty || _selectedCategory != 'All';
+
+  void updateFoods(List<FoodModel> foods) {
+    _allFoods = foods;
+    notifyListeners();
+  }
 
   void search(String value) {
     _query = value;
